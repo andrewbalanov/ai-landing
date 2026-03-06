@@ -20,9 +20,11 @@ function NewsArticlePage() {
       <div className="article-hero" style={{ background: article.coverGradient }}>
         <div className="article-hero-inner">
           <Link to="/news" className="article-back">← Все новости</Link>
-          <span className="article-category">{article.category}</span>
+          <div className="article-meta-row">
+            <span className="article-category">{article.category}</span>
+            <span className="article-date-hero">{article.date}</span>
+          </div>
           <h1>{article.title}</h1>
-          <span className="article-date">{article.date}</span>
         </div>
       </div>
 

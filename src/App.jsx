@@ -27,8 +27,8 @@ function LandingPage({ onOpenPopup }) {
       <PricingSection onOpenPopup={onOpenPopup} />
       <StagesSection />
       <TrustSection />
-      <ContactFormSection />
       <NewsSection />
+      <ContactFormSection />
     </>
   )
 }

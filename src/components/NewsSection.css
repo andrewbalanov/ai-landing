@@ -61,7 +61,6 @@
   display: flex;
   gap: 20px;
   overflow-x: auto;
-  scroll-snap-type: x mandatory;
   -ms-overflow-style: none;
   scrollbar-width: none;
   padding-bottom: 8px;
@@ -78,7 +77,6 @@
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  scroll-snap-align: start;
   transition: box-shadow .3s, transform .3s, border-color .3s;
   flex-shrink: 0;
 }

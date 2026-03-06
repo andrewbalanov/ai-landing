@@ -33,6 +33,12 @@
 .article-back:hover {
   color: #fff;
 }
+.article-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
 .article-category {
   display: inline-block;
   background: rgba(255,255,255,0.2);
@@ -44,7 +50,11 @@
   letter-spacing: .5px;
   padding: 5px 14px;
   border-radius: 100px;
-  margin-bottom: 20px;
+}
+.article-date-hero {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.6);
 }
 .article-hero h1 {
   font-size: clamp(28px, 3.5vw, 42px);
@@ -52,12 +62,6 @@
   color: #fff;
   letter-spacing: -1px;
   line-height: 1.2;
-  margin-bottom: 16px;
-}
-.article-date {
-  font-size: 14px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.6);
 }
 
 /* Body */

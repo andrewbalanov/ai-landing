@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import newsData from '../data/newsData'
 import './NewsSection.css'
@@ -18,10 +18,14 @@ const icons = {
   ),
 }
 
+// Triple the items so we have [copy][original][copy] for infinite scroll
+const loopItems = [...newsData, ...newsData, ...newsData]
+
 function NewsSection() {
   const sectionRef = useRef(null)
   const scrollRef = useRef(null)
   const [visible, setVisible] = useState(false)
+  const isAdjusting = useRef(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -32,10 +36,53 @@ function NewsSection() {
     return () => observer.disconnect()
   }, [])
 
+  // On mount, scroll to the middle set (the "real" items)
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const card = el.querySelector('.news-card')
+    if (!card) return
+    const cardWidth = card.offsetWidth + 20 // card + gap
+    el.scrollLeft = cardWidth * newsData.length
+  }, [])
+
+  // Watch scroll and loop back when reaching edges
+  const handleScroll = useCallback(() => {
+    const el = scrollRef.current
+    if (!el || isAdjusting.current) return
+
+    const card = el.querySelector('.news-card')
+    if (!card) return
+    const cardWidth = card.offsetWidth + 20
+    const setWidth = cardWidth * newsData.length
+
+    if (el.scrollLeft < cardWidth * 0.5) {
+      isAdjusting.current = true
+      el.style.scrollBehavior = 'auto'
+      el.scrollLeft += setWidth
+      el.style.scrollBehavior = ''
+      isAdjusting.current = false
+    } else if (el.scrollLeft > setWidth * 2 + cardWidth * 0.5) {
+      isAdjusting.current = true
+      el.style.scrollBehavior = 'auto'
+      el.scrollLeft -= setWidth
+      el.style.scrollBehavior = ''
+      isAdjusting.current = false
+    }
+  }, [])
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    el.addEventListener('scroll', handleScroll)
+    return () => el.removeEventListener('scroll', handleScroll)
+  }, [handleScroll])
+
   const scroll = (dir) => {
     if (!scrollRef.current) return
-    const cardWidth = scrollRef.current.querySelector('.news-card')?.offsetWidth || 380
-    scrollRef.current.scrollBy({ left: dir * (cardWidth + 20), behavior: 'smooth' })
+    const card = scrollRef.current.querySelector('.news-card')
+    const cardWidth = (card?.offsetWidth || 370) + 20
+    scrollRef.current.scrollBy({ left: dir * cardWidth, behavior: 'smooth' })
   }
 
   return (
@@ -56,8 +103,8 @@ function NewsSection() {
           </div>
         </div>
         <div className="news-carousel" ref={scrollRef}>
-          {newsData.map((item) => (
-            <Link to={`/news/${item.slug}`} className="news-card" key={item.id}>
+          {loopItems.map((item, i) => (
+            <Link to={`/news/${item.slug}`} className="news-card" key={`${item.id}-${i}`}>
               <div className="news-card-cover" style={{ background: item.coverGradient }}>
                 <span className="news-card-category">{item.category}</span>
                 <div className="news-card-icon">{icons[item.coverIcon]}</div>
