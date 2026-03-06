@@ -26,7 +26,7 @@ function App() {
       <ProductsSection />
       <CasesSection />
       <TechStackSection />
-      <PricingSection />
+      <PricingSection onOpenPopup={openPopup} />
       <StagesSection />
       <TrustSection />
       <ContactFormSection />

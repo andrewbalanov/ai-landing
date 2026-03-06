@@ -8,6 +8,11 @@
   border: 2px solid var(--gray-200); border-radius: 20px;
   padding: 40px 36px; position: relative; overflow: hidden;
   transition: border-color .25s, transform .25s, box-shadow .25s;
+  display: flex; flex-direction: column;
+}
+.plan-content {
+  display: flex; flex-direction: column; justify-content: space-between;
+  flex: 1;
 }
 .plan-card::before {
   content: '';

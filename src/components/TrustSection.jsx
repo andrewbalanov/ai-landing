@@ -51,10 +51,7 @@ function TrustSection() {
           <h3>Наша миссия</h3>
           <p>Цифровизация рынка недвижимости — сделать работу застройщиков проще, эффективнее и прозрачнее с помощью современных AI-технологий.</p>
           <div className="trust-image">
-            <img
-              src={"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500'%3E%3Crect fill='%23f4f4f2' width='800' height='500'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui' font-size='20' fill='%23999'%3E\u041A\u043E\u043C\u0430\u043D\u0434\u0430 Zevs.ai%3C/text%3E%3C/svg%3E"}
-              alt="Команда Zevs.ai"
-            />
+            <img src="/trust-visual.svg" alt="AI-технологии Zevs.ai" />
           </div>
         </div>
       </div>

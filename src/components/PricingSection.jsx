@@ -58,7 +58,7 @@ const plans = [
   },
 ]
 
-function PricingSection() {
+function PricingSection({ onOpenPopup }) {
   const ref = useRef(null)
 
   useEffect(() => {
@@ -81,10 +81,6 @@ function PricingSection() {
     return () => observer.disconnect()
   }, [])
 
-  const scrollToContact = () => {
-    document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
-
   return (
     <section id="pricing" className="pricing-section" ref={ref}>
       <div className="sec-header">
@@ -95,18 +91,22 @@ function PricingSection() {
         {plans.map((p, i) => (
           <div className={`plan-card${p.featured ? ' featured' : ''}`} key={i}>
             {p.badge && <div className="plan-badge">{p.badge}</div>}
-            <div className="plan-name">{p.num}</div>
-            <h3>{p.name}</h3>
-            <p className="plan-sub">{p.sub.split('\n').map((line, j) => <span key={j}>{line}<br /></span>)}</p>
-            <div className="plan-price">{p.price}</div>
-            <div className="plan-price-note">{p.note}</div>
-            <hr className="plan-divider" />
-            <ul className="plan-features">
-              {p.features.map((f, j) => (
-                <li key={j}><span className="check">{'\u2713'}</span> {f}</li>
-              ))}
-            </ul>
-            <button className={`plan-btn ${p.btnClass}`} onClick={scrollToContact}>{p.btnText}</button>
+            <div className="plan-content">
+              <div>
+                <div className="plan-name">{p.num}</div>
+                <h3>{p.name}</h3>
+                <p className="plan-sub">{p.sub.split('\n').map((line, j) => <span key={j}>{line}<br /></span>)}</p>
+                <div className="plan-price">{p.price}</div>
+                <div className="plan-price-note">{p.note}</div>
+                <hr className="plan-divider" />
+                <ul className="plan-features">
+                  {p.features.map((f, j) => (
+                    <li key={j}><span className="check">&#10003;</span> {f}</li>
+                  ))}
+                </ul>
+              </div>
+              <button className={`plan-btn ${p.btnClass}`} onClick={onOpenPopup}>{p.btnText}</button>
+            </div>
           </div>
         ))}
       </div>
