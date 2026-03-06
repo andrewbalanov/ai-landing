@@ -63,17 +63,36 @@
 .form-perk .check { font-size: 16px; color: rgba(255,255,255,0.5); }
 .contact-form {
   background: var(--white); border-radius: 24px; padding: 44px;
+  box-sizing: border-box;
+  min-width: 0;
 }
 .contact-form h3 {
   font-size: 20px; font-weight: 800; margin-bottom: 28px;
 }
-.form-success-text {
-  font-size: 16px; color: var(--gray-600); line-height: 1.6;
+.contact-success {
+  text-align: center;
+  padding: 40px 0 20px;
+}
+.contact-success-icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: #4caf50; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; font-weight: 700;
+  margin: 0 auto 24px;
+}
+.contact-success h3 {
+  font-size: 22px; font-weight: 800; margin-bottom: 12px;
+}
+.contact-success p {
+  font-size: 15px; color: var(--gray-600); line-height: 1.6;
+  margin-bottom: 28px;
 }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; min-width: 0; }
 .form-field label { font-size: 13px; font-weight: 600; color: var(--gray-600); }
 .form-field input, .form-field select, .form-field textarea {
+  width: 100%;
+  box-sizing: border-box;
   border: 1.5px solid var(--gray-200); border-radius: 12px;
   padding: 13px 16px; font-size: 15px; font-family: inherit;
   outline: none; transition: border-color .2s; color: var(--black);
@@ -100,11 +119,13 @@
   font-size: 16px; font-weight: 700; cursor: pointer; font-family: inherit;
   transition: background .2s, transform .2s;
   animation: gradient-flow 3s ease infinite;
+  box-sizing: border-box;
 }
 .form-submit:hover { background: var(--accent); transform: translateY(-1px); animation: none; }
 .form-submit:disabled { opacity: 0.7; cursor: not-allowed; }
 
 @media (max-width: 960px) {
-  .form-inner { grid-template-columns: 1fr; padding: 60px 20px; }
+  .form-inner { grid-template-columns: 1fr; padding: 60px 20px; gap: 40px; }
   .form-row { grid-template-columns: 1fr; }
+  .contact-form { padding: 28px 20px; }
 }

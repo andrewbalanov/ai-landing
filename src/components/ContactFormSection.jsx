@@ -26,14 +26,14 @@ function ContactFormSection() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           fields: {
-            TITLE: `Zevs.ai \u2014 ${form.company}`,
+            TITLE: `Zevs.ai — ${form.company}`,
             NAME: form.name,
             LAST_NAME: form.lastName,
             COMPANY_TITLE: form.company,
             EMAIL: form.email ? [{ VALUE: form.email, VALUE_TYPE: 'WORK' }] : [],
             PHONE: [{ VALUE: form.phone, VALUE_TYPE: 'WORK' }],
             SOURCE_ID: 'WEB',
-            COMMENTS: `\u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A: \u041B\u0435\u043D\u0434\u0438\u043D\u0433 Zevs.ai\n\u0421\u043E\u0442\u0440\u0443\u0434\u043D\u0438\u043A\u0438: ${form.employees || '\u041D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E'}\n\u0417\u0430\u0434\u0430\u0447\u0430: ${form.task || '\u041D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E'}`,
+            COMMENTS: `Источник: Лендинг Zevs.ai\nСотрудники: ${form.employees || 'Не указано'}\nЗадача: ${form.task || 'Не указано'}`,
           },
         }),
       })
@@ -68,6 +68,11 @@ function ContactFormSection() {
     }
   }
 
+  const handleReset = () => {
+    setStatus('idle')
+    setForm({ name: '', lastName: '', company: '', phone: '', email: '', employees: '', task: '', consent: true })
+  }
+
   return (
     <div id="contact" className="form-wrap">
       <div className="form-shapes">
@@ -80,31 +85,36 @@ function ContactFormSection() {
           <h2>Обсудим ваш проект?</h2>
           <p>Оставьте заявку — наш эксперт свяжется с вами в течение рабочего дня, изучит ваши задачи и предложит подходящее решение.</p>
           <div className="form-perks">
-            <div className="form-perk"><span className="check">{'\u2713'}</span> Бесплатная первая консультация</div>
-            <div className="form-perk"><span className="check">{'\u2713'}</span> Анализ процессов и расчёт ROI</div>
-            <div className="form-perk"><span className="check">{'\u2713'}</span> Прототип за 1\u20132 недели</div>
-            <div className="form-perk"><span className="check">{'\u2713'}</span> NDA по запросу</div>
+            <div className="form-perk"><span className="check">&#10003;</span> Бесплатная первая консультация</div>
+            <div className="form-perk"><span className="check">&#10003;</span> Анализ процессов и расчёт ROI</div>
+            <div className="form-perk"><span className="check">&#10003;</span> Прототип за 1–2 недели</div>
+            <div className="form-perk"><span className="check">&#10003;</span> NDA по запросу</div>
           </div>
         </div>
-        <form className="contact-form" onSubmit={handleSubmit}>
-          <h3>{status === 'success' ? '\u2713 Заявка отправлена!' : 'Оставить заявку'}</h3>
+        <div className="contact-form">
           {status === 'success' ? (
-            <p className="form-success-text">Мы свяжемся с вами в ближайшее время.</p>
+            <div className="contact-success">
+              <div className="contact-success-icon">&#10003;</div>
+              <h3>Заявка отправлена!</h3>
+              <p>Мы свяжемся с вами в ближайшее время, чтобы обсудить ваш проект и предложить подходящее решение.</p>
+              <button className="form-submit" type="button" onClick={handleReset}>Отправить ещё одну заявку</button>
+            </div>
           ) : (
-            <>
+            <form onSubmit={handleSubmit}>
+              <h3>Оставить заявку</h3>
               <div className="form-row">
                 <div className="form-field">
                   <label>Имя *</label>
                   <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="Александр" required disabled={status === 'loading'} />
                 </div>
                 <div className="form-field">
-                  <label>Фамилия *</label>
+                  <label>Фамилия</label>
                   <input type="text" name="lastName" value={form.lastName} onChange={handleChange} placeholder="Петров" disabled={status === 'loading'} />
                 </div>
               </div>
               <div className="form-field">
                 <label>Компания *</label>
-                <input type="text" name="company" value={form.company} onChange={handleChange} placeholder={'ГК \u00abМонолит\u00bb'} required disabled={status === 'loading'} />
+                <input type="text" name="company" value={form.company} onChange={handleChange} placeholder="ГК «Монолит»" required disabled={status === 'loading'} />
               </div>
               <div className="form-row">
                 <div className="form-field">
@@ -121,9 +131,9 @@ function ContactFormSection() {
                 <select name="employees" value={form.employees} onChange={handleChange} disabled={status === 'loading'}>
                   <option value="">Выберите</option>
                   <option>До 30 человек</option>
-                  <option>30\u2013100 человек</option>
-                  <option>100\u2013300 человек</option>
-                  <option>300\u20131000 человек</option>
+                  <option>30–100 человек</option>
+                  <option>100–300 человек</option>
+                  <option>300–1000 человек</option>
                   <option>Более 1000 человек</option>
                 </select>
               </div>
@@ -139,9 +149,9 @@ function ContactFormSection() {
               <button className="form-submit" type="submit" disabled={status === 'loading'}>
                 {status === 'loading' ? 'Отправка...' : 'Отправить заявку →'}
               </button>
-            </>
+            </form>
           )}
-        </form>
+        </div>
       </div>
     </div>
   )

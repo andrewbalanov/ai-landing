@@ -55,14 +55,14 @@ function PopupModal({ isOpen, onClose }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           fields: {
-            TITLE: `Zevs.ai (popup) \u2014 ${form.company}`,
+            TITLE: `Zevs.ai (popup) — ${form.company}`,
             NAME: form.name,
             LAST_NAME: form.lastName,
             COMPANY_TITLE: form.company,
             EMAIL: form.email ? [{ VALUE: form.email, VALUE_TYPE: 'WORK' }] : [],
             PHONE: [{ VALUE: form.phone, VALUE_TYPE: 'WORK' }],
             SOURCE_ID: 'WEB',
-            COMMENTS: `\u0418\u0441\u0442\u043E\u0447\u043D\u0438\u043A: \u041B\u0435\u043D\u0434\u0438\u043D\u0433 Zevs.ai (popup)\n\u0417\u0430\u0434\u0430\u0447\u0430: ${form.task || '\u041D\u0435 \u0443\u043A\u0430\u0437\u0430\u043D\u043E'}`,
+            COMMENTS: `Источник: Лендинг Zevs.ai (popup)\nЗадача: ${form.task || 'Не указано'}`,
           },
         }),
       })
@@ -90,14 +90,14 @@ function PopupModal({ isOpen, onClose }) {
         console.error('Bitrix24 error:', data)
         setErrorMsg(
           data.error === 'insufficient_scope'
-            ? '\u041E\u0448\u0438\u0431\u043A\u0430 \u043D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438 CRM. \u0421\u0432\u044F\u0436\u0438\u0442\u0435\u0441\u044C \u0441 \u043D\u0430\u043C\u0438 \u043F\u043E \u0442\u0435\u043B\u0435\u0444\u043E\u043D\u0443.'
-            : '\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043E\u0442\u043F\u0440\u0430\u0432\u0438\u0442\u044C \u0437\u0430\u044F\u0432\u043A\u0443. \u041F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0451 \u0440\u0430\u0437.'
+            ? 'Ошибка настройки CRM. Свяжитесь с нами по телефону.'
+            : 'Не удалось отправить заявку. Попробуйте ещё раз.'
         )
         setStatus('error')
       }
     } catch (err) {
       console.error('Network error:', err)
-      setErrorMsg('\u041E\u0448\u0438\u0431\u043A\u0430 \u0441\u0435\u0442\u0438. \u041F\u0440\u043E\u0432\u0435\u0440\u044C\u0442\u0435 \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u0435 \u0438 \u043F\u043E\u043F\u0440\u043E\u0431\u0443\u0439\u0442\u0435 \u0435\u0449\u0451 \u0440\u0430\u0437.')
+      setErrorMsg('Ошибка сети. Проверьте подключение и попробуйте ещё раз.')
       setStatus('error')
     }
   }
@@ -108,9 +108,9 @@ function PopupModal({ isOpen, onClose }) {
         <button className="popup-close" onClick={handleClose} type="button">&times;</button>
         {status === 'success' ? (
           <div className="popup-success">
-            <div className="popup-success-icon">{'\u2713'}</div>
+            <div className="popup-success-icon">&#10003;</div>
             <h3>Заявка отправлена!</h3>
-            <p>Мы свяжемся с вами в ближайшее время.</p>
+            <p>Мы свяжемся с вами в ближайшее время, чтобы обсудить ваш проект и предложить подходящее решение.</p>
             <button className="form-submit" type="button" onClick={handleClose}>Закрыть</button>
           </div>
         ) : (
@@ -124,13 +124,13 @@ function PopupModal({ isOpen, onClose }) {
                   <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="Александр" required disabled={status === 'loading'} />
                 </div>
                 <div className="form-field">
-                  <label>Фамилия *</label>
+                  <label>Фамилия</label>
                   <input type="text" name="lastName" value={form.lastName} onChange={handleChange} placeholder="Петров" disabled={status === 'loading'} />
                 </div>
               </div>
               <div className="form-field">
                 <label>Компания *</label>
-                <input type="text" name="company" value={form.company} onChange={handleChange} placeholder={'ГК \u00abМонолит\u00bb'} required disabled={status === 'loading'} />
+                <input type="text" name="company" value={form.company} onChange={handleChange} placeholder="ГК «Монолит»" required disabled={status === 'loading'} />
               </div>
               <div className="form-row">
                 <div className="form-field">
@@ -155,9 +155,9 @@ function PopupModal({ isOpen, onClose }) {
                 {status === 'loading' ? 'Отправка...' : 'Отправить заявку →'}
               </button>
               <div className="popup-perks">
-                <div className="popup-perk"><span className="check">{'\u2713'}</span> Бесплатная консультация</div>
-                <div className="popup-perk"><span className="check">{'\u2713'}</span> Прототип за 1\u20132 недели</div>
-                <div className="popup-perk"><span className="check">{'\u2713'}</span> NDA по запросу</div>
+                <div className="popup-perk"><span className="check">&#10003;</span> Бесплатная консультация</div>
+                <div className="popup-perk"><span className="check">&#10003;</span> Прототип за 1–2 недели</div>
+                <div className="popup-perk"><span className="check">&#10003;</span> NDA по запросу</div>
               </div>
             </form>
           </>
