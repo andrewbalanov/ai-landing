@@ -18,8 +18,10 @@ const icons = {
   ),
 }
 
+const CAROUSEL_COUNT = 5
+const carouselItems = newsData.slice(0, CAROUSEL_COUNT)
 // Triple the items so we have [copy][original][copy] for infinite scroll
-const loopItems = [...newsData, ...newsData, ...newsData]
+const loopItems = [...carouselItems, ...carouselItems, ...carouselItems]
 
 function NewsSection() {
   const sectionRef = useRef(null)
@@ -43,7 +45,7 @@ function NewsSection() {
     const card = el.querySelector('.news-card')
     if (!card) return
     const cardWidth = card.offsetWidth + 20 // card + gap
-    el.scrollLeft = cardWidth * newsData.length
+    el.scrollLeft = cardWidth * CAROUSEL_COUNT
   }, [])
 
   // Watch scroll and loop back when reaching edges
@@ -54,7 +56,7 @@ function NewsSection() {
     const card = el.querySelector('.news-card')
     if (!card) return
     const cardWidth = card.offsetWidth + 20
-    const setWidth = cardWidth * newsData.length
+    const setWidth = cardWidth * CAROUSEL_COUNT
 
     if (el.scrollLeft < cardWidth * 0.5) {
       isAdjusting.current = true
