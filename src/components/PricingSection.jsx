@@ -17,7 +17,6 @@ const plans = [
     ],
     btnClass: 'plan-btn-dark',
     btnText: 'Оставить заявку →',
-    featured: false,
   },
   {
     num: '02 / Тариф',
@@ -35,7 +34,6 @@ const plans = [
     ],
     btnClass: 'plan-btn-accent',
     btnText: 'Оставить заявку →',
-    featured: true,
     badge: 'Рекомендуем',
   },
   {
@@ -54,7 +52,6 @@ const plans = [
     ],
     btnClass: 'plan-btn-dark',
     btnText: 'Обсудить →',
-    featured: false,
   },
 ]
 
@@ -81,6 +78,11 @@ function PricingSection({ onOpenPopup }) {
     return () => observer.disconnect()
   }, [])
 
+  const handleClick = (e) => {
+    e.stopPropagation()
+    onOpenPopup()
+  }
+
   return (
     <section id="pricing" className="pricing-section" ref={ref}>
       <div className="sec-header">
@@ -89,7 +91,7 @@ function PricingSection({ onOpenPopup }) {
       </div>
       <div className="pricing-grid">
         {plans.map((p, i) => (
-          <div className={`plan-card${p.featured ? ' featured' : ''}`} key={i}>
+          <div className="plan-card" key={i}>
             {p.badge && <div className="plan-badge">{p.badge}</div>}
             <div className="plan-content">
               <div>
@@ -105,7 +107,7 @@ function PricingSection({ onOpenPopup }) {
                   ))}
                 </ul>
               </div>
-              <button className={`plan-btn ${p.btnClass}`} onClick={onOpenPopup}>{p.btnText}</button>
+              <button className={`plan-btn ${p.btnClass}`} type="button" onClick={handleClick}>{p.btnText}</button>
             </div>
           </div>
         ))}
