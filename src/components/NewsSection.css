@@ -63,7 +63,7 @@
   overflow-x: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
-  padding-bottom: 8px;
+  padding: 8px 0;
 }
 .news-carousel::-webkit-scrollbar {
   display: none;
