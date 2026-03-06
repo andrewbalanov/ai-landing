@@ -1,0 +1,27 @@
+.tech-section {
+  padding: 112px 40px; max-width: 1200px; margin: 0 auto;
+}
+.tech-stack-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+}
+.tech-item {
+  background: var(--gray-100); border-radius: 16px;
+  padding: 24px 20px; text-align: center;
+  border: 1px solid var(--gray-200);
+  transition: all .25s;
+}
+.tech-item:hover { border-color: var(--accent); transform: translateY(-2px); }
+.tech-item .tech-icon {
+  font-size: 32px; margin-bottom: 12px; display: block;
+}
+.tech-item h4 {
+  font-size: 15px; font-weight: 700; margin-bottom: 6px;
+}
+.tech-item p {
+  font-size: 13px; color: var(--gray-600); line-height: 1.5;
+}
+
+@media (max-width: 960px) {
+  .tech-section { padding: 80px 20px; }
+  .tech-stack-grid { grid-template-columns: 1fr; }
+}

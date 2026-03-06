@@ -1,0 +1,42 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #0d0d0d;
+  --white: #ffffff;
+  --accent: #FF5C35;
+  --accent-light: #fff0ec;
+  --gray-100: #f7f7f6;
+  --gray-200: #ebebea;
+  --gray-400: #b3b3b0;
+  --gray-600: #6b6b68;
+  --gray-800: #2d2d2b;
+  --card-bg: #f4f4f2;
+  --green: #22c55e;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Onest', sans-serif;
+  background: var(--white);
+  color: var(--black);
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+@keyframes gradient-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float-shape {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(20px, -30px) scale(1.1); }
+  50% { transform: translate(-20px, 20px) scale(0.9); }
+  75% { transform: translate(30px, -20px) scale(1.05); }
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 1; } 50% { opacity: .3; }
+}
