@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
 import NeedSection from './components/NeedSection'
@@ -9,8 +10,39 @@ import PricingSection from './components/PricingSection'
 import StagesSection from './components/StagesSection'
 import TrustSection from './components/TrustSection'
 import ContactFormSection from './components/ContactFormSection'
+import NewsSection from './components/NewsSection'
 import PopupModal from './components/PopupModal'
 import Footer from './components/Footer'
+import NewsPage from './pages/NewsPage'
+import NewsArticlePage from './pages/NewsArticlePage'
+
+function LandingPage({ onOpenPopup }) {
+  return (
+    <>
+      <HeroSection />
+      <NeedSection />
+      <ProductsSection />
+      <CasesSection />
+      <TechStackSection />
+      <PricingSection onOpenPopup={onOpenPopup} />
+      <StagesSection />
+      <TrustSection />
+      <ContactFormSection />
+      <NewsSection />
+    </>
+  )
+}
+
+function ScrollToHash() {
+  const { hash, pathname } = useLocation()
+  useEffect(() => {
+    if (hash && pathname === '/') {
+      const el = document.querySelector(hash)
+      if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 100)
+    }
+  }, [hash, pathname])
+  return null
+}
 
 function App() {
   const [popupOpen, setPopupOpen] = useState(false)
@@ -20,16 +52,13 @@ function App() {
 
   return (
     <>
+      <ScrollToHash />
       <Navbar onOpenPopup={openPopup} />
-      <HeroSection />
-      <NeedSection />
-      <ProductsSection />
-      <CasesSection />
-      <TechStackSection />
-      <PricingSection onOpenPopup={openPopup} />
-      <StagesSection />
-      <TrustSection />
-      <ContactFormSection />
+      <Routes>
+        <Route path="/" element={<LandingPage onOpenPopup={openPopup} />} />
+        <Route path="/news" element={<NewsPage />} />
+        <Route path="/news/:slug" element={<NewsArticlePage />} />
+      </Routes>
       <PopupModal isOpen={popupOpen} onClose={closePopup} />
       <Footer />
     </>

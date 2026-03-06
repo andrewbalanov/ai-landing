@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import './Navbar.css'
 
 function Navbar({ onOpenPopup }) {
   const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
+  const isLanding = location.pathname === '/'
 
   const handleCtaClick = (e) => {
     e.preventDefault()
@@ -14,9 +17,16 @@ function Navbar({ onOpenPopup }) {
     setMenuOpen(false)
   }
 
+  const sectionLink = (hash, label) => {
+    if (isLanding) {
+      return <a href={`#${hash}`} onClick={handleLinkClick}>{label}</a>
+    }
+    return <Link to={`/#${hash}`} onClick={handleLinkClick}>{label}</Link>
+  }
+
   return (
     <nav>
-      <div className="nav-logo">Zevs.ai</div>
+      <Link to="/" className="nav-logo" onClick={handleLinkClick}>Zevs.ai</Link>
       <button
         className={`nav-burger${menuOpen ? ' open' : ''}`}
         onClick={() => setMenuOpen(!menuOpen)}
@@ -28,11 +38,12 @@ function Navbar({ onOpenPopup }) {
         <span></span>
       </button>
       <div className={`nav-links${menuOpen ? ' nav-links--open' : ''}`}>
-        <a href="#need" onClick={handleLinkClick}>Зачем нужен</a>
-        <a href="#products" onClick={handleLinkClick}>Продукты</a>
-        <a href="#cases" onClick={handleLinkClick}>Кейсы</a>
-        <a href="#pricing" onClick={handleLinkClick}>Тарифы</a>
-        <a href="#stages" onClick={handleLinkClick}>Этапы</a>
+        {sectionLink('need', 'Зачем нужен')}
+        {sectionLink('products', 'Продукты')}
+        {sectionLink('cases', 'Кейсы')}
+        {sectionLink('pricing', 'Тарифы')}
+        {sectionLink('stages', 'Этапы')}
+        <Link to="/news" className={location.pathname.startsWith('/news') ? 'nav-link-active' : ''} onClick={handleLinkClick}>Новости</Link>
         <a href="#" className="nav-cta" onClick={handleCtaClick}>Обсудить проект →</a>
       </div>
       {menuOpen && <div className="nav-overlay" onClick={() => setMenuOpen(false)} />}

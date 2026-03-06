@@ -16,6 +16,7 @@ nav {
   background-clip: text;
   position: relative;
   z-index: 102;
+  text-decoration: none;
 }
 .nav-links { display: flex; gap: 28px; align-items: center; }
 .nav-links a {
@@ -24,6 +25,7 @@ nav {
   transition: color .2s;
 }
 .nav-links a:hover { color: var(--accent); }
+.nav-link-active { color: var(--accent) !important; }
 .nav-cta {
   background: linear-gradient(135deg, var(--black) 0%, #2d2d2b 50%, var(--black) 100%);
   background-size: 200% 100%;
