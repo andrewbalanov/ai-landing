@@ -69,8 +69,8 @@
   display: none;
 }
 .news-card {
-  min-width: 370px;
-  max-width: 370px;
+  min-width: calc((100% - 40px) / 3);
+  max-width: calc((100% - 40px) / 3);
   background: var(--white);
   border: 1px solid var(--gray-200);
   border-radius: 20px;

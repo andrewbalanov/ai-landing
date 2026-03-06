@@ -26,7 +26,13 @@ function Navbar({ onOpenPopup }) {
 
   return (
     <nav>
-      <Link to="/" className="nav-logo" onClick={handleLinkClick}>Zevs.ai</Link>
+      <Link to="/" className="nav-logo" onClick={(e) => {
+        handleLinkClick()
+        if (isLanding) {
+          e.preventDefault()
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+      }}>Zevs.ai</Link>
       <button
         className={`nav-burger${menuOpen ? ' open' : ''}`}
         onClick={() => setMenuOpen(!menuOpen)}
