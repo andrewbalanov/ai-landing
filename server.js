@@ -13,12 +13,15 @@ app.use(express.json())
 
 app.use('/', express.static(join(__dirname, 'dist')))
 
+const SMTP_USER = process.env.SMTP_USER || 'sales@zevs.ai'
+const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || SMTP_USER
+
 const transporter = nodemailer.createTransport({
   host: 'smtp.mail.ru',
   port: 465,
   secure: true,
   auth: {
-    user: process.env.SMTP_USER || 'sales@zevs.ai',
+    user: SMTP_USER,
     pass: process.env.SMTP_PASS,
   },
 })
@@ -82,8 +85,8 @@ const sendEmailHandler = async (req, res) => {
 
   try {
     await transporter.sendMail({
-      from: '"Zevs.ai - Sales" <sales@zevs.ai>',
-      to: 'sales@zevs.ai',
+      from: `"Zevs.ai" <${SMTP_USER}>`,
+      to: NOTIFY_EMAIL,
       subject: `Новая заявка: Лендинг Zevs.ai — ${company}`,
       html: buildEmailHtml({ name, lastName, company, phone, email, employees, task, consent, url: pageUrl }),
     })
